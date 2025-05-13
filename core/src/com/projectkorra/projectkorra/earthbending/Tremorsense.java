@@ -12,7 +12,6 @@ import org.bukkit.block.data.type.Slab;
 import org.bukkit.entity.Player;
 
 import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.EarthAbility;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
 import com.projectkorra.projectkorra.attribute.Attribute;
@@ -142,9 +141,17 @@ public class Tremorsense extends EarthAbility {
 	}
 
 	public void revertGlowBlock() {
-		if (this.block != null) {
+		if (this.block == null) {
+			return;
+		}
+
+		try {
 			this.player.sendBlockChange(this.block.getLocation(), this.block.getBlockData());
 			this.glowing = false;
+		} catch (NullPointerException ignored) {
+			// Ignore invalidated exception since this is not needed
+		} catch (Exception ignored) {
+			// Ignore invalidated exception since this can be ignored
 		}
 	}
 
