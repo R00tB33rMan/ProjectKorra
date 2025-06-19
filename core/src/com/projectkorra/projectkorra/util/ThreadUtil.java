@@ -211,7 +211,7 @@ public class ThreadUtil {
         if (ProjectKorra.isFolia()) {
             return Bukkit.getGlobalRegionScheduler().runDelayed(ProjectKorra.plugin, (task) -> runnable.run(), delay);
         } else {
-            return  Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
+            return Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, runnable, delay);
         }
     }
 

@@ -59,6 +59,10 @@ public class ChooseCommand extends PKCommand {
 
 			//Don't need to bother with offline players here because the sender is always online
 			BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(sender.getName());
+			if (bPlayer == null) {
+				return;
+			}
+
 			if (bPlayer.isPermaRemoved()) {
 				ChatUtil.sendBrandingMessage(sender, ChatColor.RED + ConfigManager.languageConfig.get().getString("Commands.Preset.BendingPermanentlyRemoved"));
 				return;

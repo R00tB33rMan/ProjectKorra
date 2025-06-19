@@ -79,9 +79,9 @@ public class EarthSmash extends EarthAbility {
 	private Block origin;
 	private Location location;
 	private Location destination;
-	private ArrayList<Entity> affectedEntities;
-	private ArrayList<BlockRepresenter> currentBlocks;
-	private ArrayList<TempBlock> affectedBlocks;
+	private final ArrayList<Entity> affectedEntities;
+	private final ArrayList<BlockRepresenter> currentBlocks;
+	private final ArrayList<TempBlock> affectedBlocks;
 
 	public EarthSmash(final Player player, final ClickType type) {
 		super(player);
@@ -132,7 +132,6 @@ public class EarthSmash extends EarthAbility {
 					smash.location.getWorld().playEffect(smash.location, Effect.GHAST_SHOOT, 0, 10);
 				}
 			}
-			return;
 		} else if (type == ClickType.RIGHT_CLICK && player.isSneaking()) {
 			final EarthSmash grabbedSmash = this.aimingAtSmashCheck(player, State.GRABBED);
 			if (grabbedSmash != null) {
@@ -142,7 +141,6 @@ public class EarthSmash extends EarthAbility {
 				grabbedSmash.setFields();
 				grabbedSmash.flightStartTime = System.currentTimeMillis();
 			}
-			return;
 		}
 	}
 
@@ -210,7 +208,6 @@ public class EarthSmash extends EarthAbility {
 					this.maxDamage = applyMetalPowerFactor(this.maxDamage, this.origin);
 				} else {
 					this.remove();
-					return;
 				}
 			} else if (System.currentTimeMillis() - this.getStartTime() > this.chargeTime) {
 				final Location tempLoc = this.player.getEyeLocation().add(this.player.getEyeLocation().getDirection().normalize().multiply(1.2));
@@ -236,10 +233,8 @@ public class EarthSmash extends EarthAbility {
 					}
 				}
 				this.draw();
-				return;
 			} else {
 				this.state = State.LIFTED;
-				return;
 			}
 		} else if (this.state == State.SHOT) {
 			if (System.currentTimeMillis() - this.delay >= this.shootAnimationInterval) {
@@ -272,7 +267,6 @@ public class EarthSmash extends EarthAbility {
 				this.draw();
 				this.smashToSmashCollisionDetection();
 			}
-			return;
 		} else if (this.state == State.FLYING) {
 			if (!this.player.isSneaking()) {
 				this.remove();
@@ -311,7 +305,6 @@ public class EarthSmash extends EarthAbility {
 			}
 			if (System.currentTimeMillis() - this.flightStartTime > this.flightDuration) {
 				this.remove();
-				return;
 			}
 		}
 	}
@@ -457,7 +450,7 @@ public class EarthSmash extends EarthAbility {
 			final BlockRepresenter brep = this.currentBlocks.get(i);
 			final Block block = this.location.clone().add(brep.getX(), brep.getY(), brep.getZ()).getBlock();
 			// Check for grass because sometimes the dirt turns into grass.
-			if (block.getType() != brep.getType() && (block.getType() != Material.GRASS) && (block.getType() != Material.COBBLESTONE)) {
+			if (block.getType() != brep.getType() && (block.getType() != Material.GRASS_BLOCK) && (block.getType() != Material.COBBLESTONE)) {
 				this.currentBlocks.remove(i);
 				i--;
 			}

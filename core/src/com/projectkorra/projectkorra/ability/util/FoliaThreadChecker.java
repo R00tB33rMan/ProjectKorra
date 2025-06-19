@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  */
 public class FoliaThreadChecker implements Runnable {
 
-    private Player player;
+    private final Player player;
     private Location oldLocation;
 
     public FoliaThreadChecker(Player player) {

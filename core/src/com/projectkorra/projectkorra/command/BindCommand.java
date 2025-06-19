@@ -114,10 +114,10 @@ public class BindCommand extends PKCommand {
 	@Override
 	protected List<String> getTabCompletion(final CommandSender sender, final List<String> args) {
 		if (args.size() >= 2 || !sender.hasPermission("bending.command.bind") || !(sender instanceof Player)) {
-			return new ArrayList<String>();
+			return new ArrayList<>();
 		}
 
-		List<String> abilities = new ArrayList<String>();
+		List<String> abilities = new ArrayList<>();
 		final BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(sender.getName());
 		if (args.size() == 0) {
 			if (bPlayer != null) {

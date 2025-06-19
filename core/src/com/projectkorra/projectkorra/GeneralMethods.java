@@ -802,7 +802,7 @@ public class GeneralMethods {
 			if (ComboManager.checkForValidCombo(player) != null && checkCombos) {
 				return ComboManager.checkForValidCombo(player).getName();
 			} else {
-				return lastUsedAbility.get(0).getAbilityName();
+				return lastUsedAbility.getFirst().getAbilityName();
 			}
 		}
 		return null;
@@ -1083,7 +1083,7 @@ public class GeneralMethods {
 	}
 
 	public static ArrayList<Element> getElementsWithNoWeaponBending() {
-		final ArrayList<Element> elements = new ArrayList<Element>();
+		final ArrayList<Element> elements = new ArrayList<>();
 
 		if (!plugin.getConfig().getBoolean("Properties.Air.CanBendWithWeapons")) {
 			elements.add(Element.AIR);

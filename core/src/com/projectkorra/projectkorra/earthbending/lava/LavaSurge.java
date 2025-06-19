@@ -119,7 +119,9 @@ public class LavaSurge extends LavaAbility {
 
 		try {
 			targetLocation = GeneralMethods.getTargetedEntity(this.player, this.travelRange * 2, null).getLocation();
-		} catch (final NullPointerException e) {}
+		} catch (final NullPointerException ignored) {
+			// Ignore this exception too since it's not needed
+		}
 
 		if (targetLocation == null) {
 			this.remove();
