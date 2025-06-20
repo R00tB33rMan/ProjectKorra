@@ -66,31 +66,6 @@ public class CollisionManager {
 		this.collisions = new ArrayList<>();
 	}
 
-	public static void handleCollisions(CoreAbility source, Location location, double radius) {
-		if (!source.isCollidable()) {
-			return;
-		}
-
-		for (CoreAbility target : CoreAbility.getAbilitiesByInstances()) {
-			if (target == source || !target.isCollidable()) continue;
-
-			for (Location targetLoc : target.getLocations()) {
-				if (location.getWorld() != targetLoc.getWorld()) continue;
-				if (location.distanceSquared(targetLoc) <= Math.pow(radius + target.getCollisionRadius(), 2)) {
-					Collision forward = new Collision(source, target, true, true, location, targetLoc);
-					Collision reverse = new Collision(target, source, true, true, targetLoc, location);
-
-					AbilityCollisionEvent event = new AbilityCollisionEvent(forward);
-					Bukkit.getPluginManager().callEvent(event);
-					if (event.isCancelled()) continue;
-
-					source.handleCollision(forward);
-					target.handleCollision(reverse);
-				}
-			}
-		}
-	}
-
 	private void detectCollisions() {
 		int activeInstanceCount = 0;
 
